@@ -1,7 +1,9 @@
-
+#!/usr/bin/env
+"""filter logger"""
 import re
 import logging
 from typing import List
+
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
@@ -11,6 +13,7 @@ def filter_datum(fields: List[str], redaction: str, message: str,
         msm = re.sub(field + "=" + f"[^,{separator}]+",
                              " " + field + "=" + redaction, msm)
     return msm
+
 
 class RedactingFormatter(logging.Formatter):
     """Redacting Formatter class"""
@@ -29,4 +32,3 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION,
                                   record.msg, self.SEPARATOR)
         return logging.Formatter(self.FORMAT).format(record)
-
