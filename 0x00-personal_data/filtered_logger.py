@@ -38,6 +38,7 @@ class RedactingFormatter(logging.Formatter):
                                   record.msg, self.SEPARATOR)
         return logging.Formatter(self.FORMAT).format(record)
 
+
 def get_db() -> connection.MySQLConnection:
     """
     method get_db that Connect to mysql
@@ -52,6 +53,7 @@ def get_db() -> connection.MySQLConnection:
         host=db_host,
         database=db_name)
     return connector
+
 
 def get_logger() -> logging.Logger:
     """ method get logger"""
