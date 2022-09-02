@@ -4,6 +4,8 @@ import re
 import logging
 from typing import List
 import logging
+from os import environ
+from mysql.connector import connection
 
 PII_FIELDS = ('name', 'password', 'phone', 'ssn', 'email')
 
@@ -36,6 +38,20 @@ class RedactingFormatter(logging.Formatter):
                                   record.msg, self.SEPARATOR)
         return logging.Formatter(self.FORMAT).format(record)
 
+def get_db() -> connection.MySQLConnection:
+    """
+    method get_db that Connect to mysql
+    """
+    username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    db_host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = environ.get("PERSONAL_DATA_DB_NAME")
+    connector = connection.MySQLConnection(
+        user=username,
+        password=password,
+        host=db_host,
+        database=db_name)
+    return connector
 
 def get_logger() -> logging.Logger:
     """ method get logger"""
