@@ -38,6 +38,11 @@ class DB:
         """
         method should save the user to the database
         """
+        if email is None or not isinstance(email, str):
+            return None
+        if hashed_password is None or not isinstance(hashed_password, str):
+            return None
+
         new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
