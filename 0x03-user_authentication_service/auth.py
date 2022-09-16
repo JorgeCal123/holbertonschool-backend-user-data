@@ -119,4 +119,4 @@ def _hash_password(password: str) -> bytes:
     method that takes in a password string arguments
     and returns bytes
     """
-    return hashpw(password.encode(), gensalt())
+    return hashpw(password.encode('utf-8'), gensalt())
