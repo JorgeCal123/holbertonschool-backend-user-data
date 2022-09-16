@@ -10,8 +10,8 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route('/', strict_slashes=False)
-def home() -> str:
+@app.route('/', methods=['GET'], strict_slashes=False)
+def index() -> str:
     """
     Home route
     """
