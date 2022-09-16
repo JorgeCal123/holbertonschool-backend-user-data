@@ -46,10 +46,13 @@ class DB:
         This method takes in arbitrary keyword arguments and returns
         the first row found in the users
         """
-        user = self._session.query(User).filter_by(**kwargs).first()
-        if not user:
-            raise NoResultFound("No user found")
-        return user
+        try:
+            record = self._session.query(User).filter_by(**kwargs).first()
+        except TypeError:
+            raise InvalidRequestError
+        if record is None:
+            raise NoResultFound
+        return record
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """

@@ -10,14 +10,6 @@ from sqlalchemy.exc import InvalidRequestError
 import uuid
 
 
-def _hash_password(password: str) -> bytes:
-    """
-    method that takes in a password string arguments
-    and returns bytes
-    """
-    return hashpw(password.encode(), gensalt())
-
-
 class Auth:
     """
     Auth class
@@ -120,3 +112,11 @@ def _generate_uuid() -> str:
         function should return a string representation of a new UUID
     """
     return str(uuid.uuid4())
+
+def _hash_password(password: str) -> bytes:
+    """
+    method that takes in a password string arguments
+    and returns bytes
+    """
+    return hashpw(password.encode(), gensalt())
+
